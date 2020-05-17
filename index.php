@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Question of the Day!">
+  <!-- <meta property="og:title" content="Question of the Day!"> -->
+  <meta property="og:description" content="The super fantastic afternoon standup game!">
+  <meta property="og:url" content="https://fa-question-of-the-day.herokuapp.com">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
   <title>Question of the Day!</title>
 
   <style>
