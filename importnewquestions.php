@@ -8,7 +8,7 @@ use App\Question;
 
 $q = new Question();
 
-if (date('l', $_GET['t'] ?? 0) === date('l', time())) {
+if (isset($_GET['day']) && strtolower($_GET['day']) === strtolower(date('l', time()))) {
   if ($q->addQuestions()) {
     echo 'New questions added! Thanks for playing!';
   } else {

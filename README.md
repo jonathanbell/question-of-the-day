@@ -16,5 +16,5 @@ are stored in a Google Firebase database.
 ## Add new questions to the database
 
 1. Add the new questions (line by line) to: `data/questions.txt`
-1. Open `http://<app domain>:<app port>/importnewquestions.php?t=<Today's day of
-   the week in English>`
+1. Open `http://<app domain>:<app port>/importnewquestions.php?day=<Today's day
+   of the week in English>`
