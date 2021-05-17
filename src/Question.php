@@ -20,11 +20,14 @@ class Question {
   public function __construct() {
     $firebase_config_path = __DIR__.'/../secrets/firebase-config.json';
 
-    if (file_exists($firebase_config_path)) {
+    // Heroku deployment hack
+    if (getenv('FIREBASE_CONFIG_BASE64')) {
+      // 😅
+      file_put_contents($firebase_config_path, base64_decode(getenv('FIREBASE_CONFIG_BASE64')));
       $firebase = (new Factory)->withServiceAccount($firebase_config_path);
     } else {
-      if (getenv('FIREBASE_CONFIG_BASE64')) {
-        file_put_contents($firebase_config_path, base64_decode(getenv('FIREBASE_CONFIG_BASE64')));
+      // Local development hack
+      if (file_exists($firebase_config_path)) {
         $firebase = (new Factory)->withServiceAccount($firebase_config_path);
       } else {
         exit('Firebase credentials error');
