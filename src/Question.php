@@ -18,7 +18,19 @@ class Question {
   protected $database;
 
   public function __construct() {
-    $firebase = (new Factory)->withServiceAccount(__DIR__.'/../secrets/question-of-the-day-75de9-1d48bfcd1804.json');
+    $firebase_config_path = __DIR__.'/../secrets/firebase-config.json';
+
+    if (file_exists($firebase_config_path)) {
+      $firebase = (new Factory)->withServiceAccount($firebase_config_path);
+    } else {
+      if (getenv('FIREBASE_CONFIG_BASE64')) {
+        file_put_contents($firebase_config_path, base64_decode(getenv('FIREBASE_CONFIG_BASE64')));
+        $firebase = (new Factory)->withServiceAccount($firebase_config_path);
+      } else {
+        exit('Firebase credentials error');
+      }
+    }
+
     $this->database = $firebase->createDatabase();
   }
 
