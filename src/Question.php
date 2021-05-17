@@ -69,13 +69,30 @@ class Question {
   public function resetQuestions(): bool {
     $oldQuestions = $this->getAll();
 
+    // Danger: resets all questions to un-answered!
     foreach ($oldQuestions as $key => $value) {
       $this->remove($value->id);
     }
 
-    $newQuestions = file(__DIR__.'/../data/questions.txt', FILE_IGNORE_NEW_LINES);
+    $newQuestions = file(__DIR__.'/../data/questions.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     return $this->insert($newQuestions);
+  }
+
+  public function addQuestions(): bool {
+    $localQuestions = file(__DIR__.'/../data/questions.txt', FILE_IGNORE_NEW_LINES);
+    $dbQuestions = array_map(function($question) {
+      return $question->question;
+    }, $this->getAll());
+
+    $newQuestions = [];
+    foreach($localQuestions as $localQuestion) {
+      if (!in_array($localQuestion, $dbQuestions)) {
+        $newQuestions[] = $localQuestion;
+      }
+    }
+
+    return empty($newQuestions) ? false : $this->insert($newQuestions);
   }
 
   /**
@@ -98,7 +115,7 @@ class Question {
         ->getChild(self::dbname)
         ->getChild($qid)
         ->set([
-          'question' => $question,
+          'question' => trim($question),
           'answered' => false,
           'answeredDate' => null,
         ]);

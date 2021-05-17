@@ -9,8 +9,11 @@ use App\Question;
 $q = new Question();
 
 if (date('l', $_GET['t'] ?? 0) === date('l', time())) {
-  $q->resetQuestions();
-  echo 'Questions reset.';
+  if ($q->addQuestions()) {
+    echo 'New questions added! Thanks for playing!';
+  } else {
+    echo 'No new questions to add 😞.';
+  }
 } else {
-  echo 'Incorrect day.';
+  echo 'Incorrect action.';
 }
