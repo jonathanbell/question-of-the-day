@@ -10,6 +10,10 @@ are stored in a Google Firebase database.
 1. Create a Google Firebase database and place the [JSON service account
    file](https://firebase.google.com/docs/admin/setup#add_firebase_to_your_app)
    in `./secrets/firebase-config.json`
+     - You can convert the JSON file to base64 like this: `openssl base64 -in
+       ./secrets/firebase-config.json -out
+       ./secrets/firebase-config.json.base64` You can then add that as a secret
+       to your deployment/hosting provider (as an environment variable)
 1. `composer install`
 1. `open http://127.0.0.1:8080 && php -S 127.0.0.1:8080` (serve the app)
 
