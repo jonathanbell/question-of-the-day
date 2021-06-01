@@ -59,7 +59,7 @@ function updateAnsweredQuestions(questions) {
     li.textContent = `${question.question}`;
     if (question.answeredDate) {
       const span = document.createElement('span');
-      span.textContent = `Answered: ${new Date(question.answeredDate * 1000).toLocaleDateString('en-US')}`;
+      span.textContent = `Answered: ${new Date(question.answeredDate * 1000).toLocaleDateString([navigator.language, 'en-CA'])}`;
       li.appendChild(span);
     }
     answeredQuestionsContainer.appendChild(li);
